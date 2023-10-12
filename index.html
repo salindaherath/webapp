@@ -11,11 +11,11 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script>
         var api = "https://script.google.com/macros/s/AKfycbyaJDh3tDIZwwv4fSlXlmrBYy53_ptI0jxG9hYGxQ3P5sTZoAYx7yjW7HKXPAUokvNc/exec";
-        var firebaseConfig = {};
+        let firebaseConfig = {};
 		var vapidKey = "";
 	    let messaging;        
 		if ('serviceWorker' in navigator) {
-            console.log("ingreso");
+            console.log("income");
             // SE OBTIENE LOS DATOS 
             $.ajax({
                 url: api,
@@ -27,10 +27,10 @@
                     if (respuesta.status == '0') {
                         firebaseConfig = respuesta.firebaseConfig;
                         vapidKey = respuesta.vapidKey;
-                        console.log("Se consulto parametria correctamente");
+                        console.log("Parameters were consulted correctly");
                         suscribirse_push();
                     } else {
-                        alert("No se suscribio");
+                        alert("Did not subscribe");
                     }
                 }
             });
@@ -41,10 +41,10 @@
         async function suscribirse_push() {
             await firebase.initializeApp(firebaseConfig);
             messaging = await firebase.messaging();
-            const serviceWorkerRegistration = await navigator.serviceWorker.register('/Notificacion/firebase-messaging-sw.js?config='+ encodeURIComponent(JSON.stringify(firebaseConfig)))
-//            const serviceWorkerRegistration = await navigator.serviceWorker.register('/firebase-messaging-sw.js')
+ //           const serviceWorkerRegistration = await navigator.serviceWorker.register('/Notificacion/firebase-messaging-sw.js?config='+ encodeURIComponent(JSON.stringify(firebaseConfig)))
+            const serviceWorkerRegistration = await navigator.serviceWorker.register('/firebase-messaging-sw.js')
 			.catch((err) => { return console.log('[Service Worker] Registration Error:', err) })
-            console.log('[Service Worker] Registered. Scope:', serviceWorkerRegistration.scope);
+      //      console.log('[Service Worker] Registered. Scope:', serviceWorkerRegistration.scope);
             await navigator.serviceWorker.ready;
             await messaging.getToken({ vapidKey: vapidKey, serviceWorkerRegistration: serviceWorkerRegistration })
                 .then((currentToken) => {
@@ -58,9 +58,9 @@
                             async: true,
                             success: function (respuesta) {
                                 if (respuesta.status == '0') {
-                                    console.log("The token is generated");
+                                    console.log("Se genero el token");
                                 } else {
-                                    alert("Don't subscribe");
+                                    alert("No se suscribio");
                                 }
                             }
                         });
