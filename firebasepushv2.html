@@ -42,7 +42,7 @@
         async function suscribirse_push() {
             await firebase.initializeApp(firebaseConfig);
             messaging = await firebase.messaging();
-            const serviceWorkerRegistration = await navigator.serviceWorker.register('/webapp/firebase-messaging-sw.js?config='+ encodeURIComponent(JSON.stringify(firebaseConfig)))
+            const serviceWorkerRegistration = await navigator.serviceWorker.register('https://salindaherath.github.io/webapp/firebase-messaging-sw.js?config='+ encodeURIComponent(JSON.stringify(firebaseConfig)))
  //           const serviceWorkerRegistration = await navigator.serviceWorker.register('/firebase-messaging-sw.js')
 			.catch((err) => { return console.log('[Service Worker] Registration Error:', err) })
       //      console.log('[Service Worker] Registered. Scope:', serviceWorkerRegistration.scope);
